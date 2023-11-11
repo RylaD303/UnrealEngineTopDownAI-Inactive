@@ -1,17 +1,13 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "5.1",
+	"EngineAssociation": "8D44F986-DD3C-4D31-B569-BAF8CAEC3D24",
 	"Category": "",
 	"Description": "",
 	"Modules": [
 		{
 			"Name": "Demonless",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"PaperZD",
-				"Paper2D"
-			]
+			"LoadingPhase": "Default"
 		}
 	],
 	"Plugins": [
@@ -23,9 +19,24 @@
 			]
 		},
 		{
-			"Name": "PaperZD",
-			"Enabled": false,
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/c4b43502026047d89296cd7bffd92828"
+			"Name": "EditorTests",
+			"Enabled": true
+		},
+		{
+			"Name": "FbxAutomationTestBuilder",
+			"Enabled": true
+		},
+		{
+			"Name": "FunctionalTestingEditor",
+			"Enabled": true
+		},
+		{
+			"Name": "RuntimeTests",
+			"Enabled": true
+		},
+		{
+			"Name": "TestSamples",
+			"Enabled": true
 		}
 	]
 }
