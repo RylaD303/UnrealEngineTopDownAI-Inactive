@@ -1,11 +1,11 @@
 #include "Misc/AutomationTest.h"
 #include "ATopDown2DAIController.h"
 
-IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestTopDown2DAI, "Demonless.TopDown2DAITests.TopDown2DAITest", EAutomationTestFlags::SmokeFilter | EAutomationTestFlags::ApplicationContextMask)
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(TestTopDown2DAI, "TopDown2DAI.TopDown2DAITests.TopDown2DAITest", EAutomationTestFlags::SmokeFilter | EAutomationTestFlags::ApplicationContextMask)
 
 bool TestTopDown2DAI::RunTest(FString const& Parameters)
 {
-    const auto bToTest = true;
+    const auto bToTest = false;
     TestTrue("bool to test", bToTest);
 
     const auto FloatToTest = 0.F;

@@ -26,8 +26,7 @@ public class TopDown2DAI : ModuleRules
 			new string[]
 			{
 				"Core",
-				"AIModule",
-				"AutomationTest"// ... add other public dependencies that you statically link with here ...""
+				"AIModule",// ... add other public dependencies that you statically link with here ...""
 			}
 			);
 			
@@ -35,6 +34,7 @@ public class TopDown2DAI : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
+				"Core",
 				"CoreUObject",
 				"Engine",
 				"Slate",
