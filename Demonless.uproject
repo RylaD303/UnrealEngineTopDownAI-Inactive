@@ -1,6 +1,6 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "8D44F986-DD3C-4D31-B569-BAF8CAEC3D24",
+	"EngineAssociation": "8FA5175A-C38D-4035-83FF-9A01B5C780A4",
 	"Category": "",
 	"Description": "",
 	"Modules": [
@@ -19,7 +19,7 @@
 			]
 		},
 		{
-			"Name": "EditorTests",
+			"Name": "AutomationDriverTests",
 			"Enabled": true
 		},
 		{
@@ -28,14 +28,6 @@
 		},
 		{
 			"Name": "FunctionalTestingEditor",
-			"Enabled": true
-		},
-		{
-			"Name": "RuntimeTests",
-			"Enabled": true
-		},
-		{
-			"Name": "TestSamples",
 			"Enabled": true
 		}
 	]
