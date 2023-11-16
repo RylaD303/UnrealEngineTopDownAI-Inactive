@@ -11,7 +11,7 @@ class TOPDOWNAI_API FTestModuleImpl : public FDefaultGameModuleImpl
 
     void ShutdownModule() override
     {
-        /* Workaround for UE-25350 
+        /* Workaround for UE-25350 (This issue if from 2016 by the way. Still not fixed.)
         Work­around would there­fore be to just cre­ate an emp­ty UCLASS in the mod­ule that con­tains the tests.
         */
         FAutomationTestFramework::Get().UnregisterAutomationTest("TopDownAITest");
