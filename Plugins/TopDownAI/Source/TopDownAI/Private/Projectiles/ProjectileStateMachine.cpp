@@ -13,7 +13,10 @@ UProjectileStateMachine::UProjectileStateMachine()
 
 	// ...
 }
+void UProjectileStateMachine::SetProjectileState(UProjectileState* NewState)
+{
 
+}
 
 // Called when the game starts
 void UProjectileStateMachine::BeginPlay()

@@ -2,11 +2,11 @@
 
 #pragma once
 
+#include "ProjectileState.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Containers/Array.h"
 #include "ProjectileStateMachine.generated.h"
-
 
 UENUM(BlueprintType)
 enum class EProjectileMovementState : uint8
@@ -27,13 +27,14 @@ enum class EProjectileBehaviourState : uint8
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TOPDOWNAI_API UProjectileStateMachine : public UActorComponent
 {
+
 	GENERATED_BODY()
 
 public:	
 	UProjectileStateMachine();
 
     UFUNCTION(BlueprintCallable, Category = "Projectile")
-    void SetProjectileState(EProjectileMovementState NewState);
+    void SetProjectileState(UProjectileState* NewState);
 	
 private:
 
