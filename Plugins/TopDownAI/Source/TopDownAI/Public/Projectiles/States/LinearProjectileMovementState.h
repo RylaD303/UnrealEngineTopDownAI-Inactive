@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Math/Vector.h"
 #include "CoreMinimal.h"
 #include "Projectiles/ProjectileState.h"
 #include "LinearProjectileMovementState.generated.h"
@@ -26,6 +26,8 @@ public:
 private:
 	FTimerHandle ExpirationTimerHandle;
 
+	float Speed;
+	FVector FForwardVector;
 	// Function to handle collision events
 	UFUNCTION()
 	void OnCollision();

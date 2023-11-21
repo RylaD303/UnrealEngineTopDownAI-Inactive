@@ -1,8 +1,5 @@
-
-
-
 #include "Projectiles/ProjectileStateMachine.h"
-
+#define NO_DEBUG
 
 // Sets default values for this component's properties
 UProjectileStateMachine::UProjectileStateMachine()
@@ -22,8 +19,6 @@ void UProjectileStateMachine::SetProjectileState(UProjectileState* NewState)
 void UProjectileStateMachine::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
 	
 }
 
@@ -33,6 +28,5 @@ void UProjectileStateMachine::TickComponent(float DeltaTime, ELevelTick TickType
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 }
 

@@ -1,4 +1,3 @@
-#include "Math/Vector.h"
 #include "Projectiles/States/LinearProjectileMovementState.h"
 
 #define NO_DEBUG
@@ -12,6 +11,11 @@ void ULinearProjectileMovementState::BeginState()
 {
 	Super::BeginState();
 
+#ifndef NO_DEBUG
+	assert(GetOwner() != NULL);
+	UE_LOG(LogTemp, Verbose, TEDXT("Owner: %s. Projectile entered LinearProjectileState.", *GetOwner()->GetName());
+#endif
+
 	GetWorld()->GetTimerManager().SetTimer(ExpirationTimerHandle, this, &ULinearProjectileMovementState::EndState, ExpirationTime, false);
 
 	if (GetOwner())
@@ -24,6 +28,9 @@ void ULinearProjectileMovementState::UpdateState(float DeltaTime)
 {
 	Super::UpdateState(DeltaTime);
 
+#ifndef NO_DEBUG
+	assert(GetOwner() != NULL);
+#endif
 	FVector NewLocation = GetOwner()->GetActorLocation() + GetOwner()->GetActorForwardVector() * Speed * DeltaTime;
 	GetOwner()->SetActorLocation(NewLocation);
 }
@@ -31,6 +38,11 @@ void ULinearProjectileMovementState::UpdateState(float DeltaTime)
 void ULinearProjectileMovementState::EndState()
 {
 	Super::EndState();
+
+#ifndef NO_DEBUG
+	assert(GetOwner() != NULL);
+	UE_LOG(LogTemp, Verbose, TEDXT("Owner: %s. Projectile ended.", *GetOwner()->GetName());
+#endif
 
 	GetWorld()->GetTimerManager().ClearTimer(ExpirationTimerHandle);
 
