@@ -26,7 +26,7 @@ public class TopDownAI : ModuleRules
 			new string[]
 			{
 				"Core",
-				"AIModule",
+				"AIModule"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);

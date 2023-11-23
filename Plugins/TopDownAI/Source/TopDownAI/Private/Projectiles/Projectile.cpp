@@ -1,6 +1,7 @@
 
 
 // AProjectile.cpp
+#include "DamageableActor.h"
 #include "Projectiles/Projectile.h"
 #include "Components/SphereComponent.h"
 
@@ -42,10 +43,13 @@ void AProjectile::OnOverlap(AActor* SelfActor, AActor* OtherActor, FVector Norma
 {
 	if (OtherActor && OtherActor != this)
 	{
+		ADamageableActor* DamageableActor = Cast<ADamageableActor>(OtherActor);
+    	if (DamageableActor)
+		{
+			OtherActor->TakeDamage(Damage, FDamageEvent(), nullptr, this);
+		}
 		
-		OtherActor->TakeDamage(Damage, FDamageEvent(), nullptr, this);
-		
-		// Later: alert the ProjectileStateHandler.
+		// Later: alert the ProjectileStateHandler. FIXME!
 		Destroy();
 	}
 }
