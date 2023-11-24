@@ -22,15 +22,17 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void OnOverlap(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+	virtual void OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 
-	UPROPERTY(VisibleAnywhere, Category = Movement)
+	UPROPERTY(VisibleAnywhere, Category = "Movement")
 	class UProjectileMovementComponent* MovementComponent;
+
+   UPROPERTY(VisibleAnywhere, Category = "Collision")
+	class USphereComponent* CollisionComponent;
 
 	UPROPERTY(EditAnywhere)
 	double Damage;
 
-public:	
-	// Called every frame
+public:
 	virtual void Tick(float DeltaTime) override;
 };

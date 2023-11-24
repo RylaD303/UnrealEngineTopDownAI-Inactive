@@ -20,7 +20,7 @@ void ULinearProjectileMovementState::BeginState()
 
 	if (GetOwner())
 	{
-		GetOwner()->OnHit.AddDynamic(this, &ULinearProjectileMovementState::OnCollision);
+		GetOwner()->OnActorHit.AddDynamic(this, &ULinearProjectileMovementState::OnCollision);
 	}
 }
 
@@ -49,11 +49,11 @@ void ULinearProjectileMovementState::EndState()
 	// Unbind OnCollision function from OnHit event (replace with your actual collision event)
 	if (GetOwner())
 	{
-		GetOwner()->OnHit.RemoveDynamic(this, &ULinearProjectileMovementState::OnCollision);
+		GetOwner()->OnActorHit.RemoveDynamic(this, &ULinearProjectileMovementState::OnCollision);
 	}
 }
 
-void ULinearProjectileMovementState::OnCollision()
+void ULinearProjectileMovementState::OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	EndState();
 }

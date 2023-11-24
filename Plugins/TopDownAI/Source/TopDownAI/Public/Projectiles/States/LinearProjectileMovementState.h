@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Math/Vector.h"
 #include "CoreMinimal.h"
 #include "Projectiles/ProjectileState.h"
@@ -23,12 +24,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LinearProjectileMovementState")
 	float ExpirationTime;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "LinearProjectileMovementState")
+	float Speed;
+
 private:
 	FTimerHandle ExpirationTimerHandle;
 
-	float Speed;
 	FVector FForwardVector;
 	// Function to handle collision events
 	UFUNCTION()
-	void OnCollision();
+	void OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 };

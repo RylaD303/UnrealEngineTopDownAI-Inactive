@@ -1,8 +1,6 @@
 
-
-// AProjectile.cpp
-#include "DamageableActor.h"
 #include "Projectiles/Projectile.h"
+#include "Actors/DamageableActor.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -11,19 +9,15 @@ AProjectile::AProjectile()
 	// Set this actor to call Tick() every frame
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Create a sphere component for collision
-	USphereComponent* CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComponent"));
-	RootComponent = CollisionComponent;
-	CollisionComponent->InitSphereRadius(20.0f); // Adjust the radius as needed
-
-	// Create a projectile movement component
+	// Create the movement component using CreateDefaultSubobject
 	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
-	MovementComponent->SetUpdatedComponent(CollisionComponent);
-	MovementComponent->InitialSpeed = 2000.0f; // Adjust the initial speed as needed
-	MovementComponent->MaxSpeed = 2000.0f; // Adjust the max speed as needed
-	MovementComponent->bRotationFollowsVelocity = true;
-	MovementComponent->bShouldBounce = true;
 
+	// Set default values for the movement component
+	MovementComponent->InitialSpeed = 10.0f;
+	MovementComponent->MaxSpeed = 10.0f;
+	MovementComponent->bRotationFollowsVelocity = true;
+
+	// Set default values
 	Damage = 10.0;
 }
 
@@ -31,7 +25,7 @@ void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 
-	OnActorHit.AddDynamic(this, &AProjectile::OnOverlap);
+	OnActorHit.AddDynamic(this, &AProjectile::OnHit);
 }
 
 void AProjectile::Tick(float DeltaTime)
@@ -39,14 +33,14 @@ void AProjectile::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AProjectile::OnOverlap(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+void AProjectile::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
 	if (OtherActor && OtherActor != this)
 	{
 		ADamageableActor* DamageableActor = Cast<ADamageableActor>(OtherActor);
     	if (DamageableActor)
 		{
-			OtherActor->TakeDamage(Damage, FDamageEvent(), nullptr, this);
+			//OtherActor->TakeDamage(Damage, FDamageEvent(), nullptr, this);
 		}
 		
 		// Later: alert the ProjectileStateHandler. FIXME!
