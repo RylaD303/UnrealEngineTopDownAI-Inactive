@@ -26,7 +26,8 @@ public class TopDownAI : ModuleRules
 			new string[]
 			{
 				"Core",
-				"AIModule"
+				"AIModule",
+				"AutomationTest"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -39,7 +40,6 @@ public class TopDownAI : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
-				"AutomationTest",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

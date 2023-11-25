@@ -43,6 +43,7 @@ void AProjectile::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImp
 			//OtherActor->TakeDamage(Damage, FDamageEvent(), nullptr, this);
 		}
 		
+
 		// Later: alert the ProjectileStateHandler. FIXME!
 		Destroy();
 	}

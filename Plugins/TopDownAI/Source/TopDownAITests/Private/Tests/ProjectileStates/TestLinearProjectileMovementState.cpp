@@ -7,16 +7,22 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     "TopDownAI.Projectile.ProjectileStates.LinearProjectileMovementStateTest",
     EAutomationTestFlags::SmokeFilter | EAutomationTestFlags::ApplicationContextMask)
 
+/* Had to change the modules loading phase to postdefault (instead of default) in .uplugin file,
+*  because It was calling NewObject before CDO compilation (which means it was swarching for the function before it was created)*/
+
+
 bool TestLinearProjectileMovementState::RunTest(FString const& Parameters)
 {
     // Test 0. Component attachments
-    TUniquePtr<AProjectile> Projectile(NewObject<AProjectile>(GetTransientPackage(), FName(TEXT("TestProjectile"))));
+    AProjectile* Projectile = NewObject<AProjectile>(AProjectile::StaticClass());
+    check(Projectile);
 
     // Attach the component
-    TSharedPtr<ULinearProjectileMovementState> LinearMovementState(NewObject<ULinearProjectileMovementState>(Projectile.Get(), FName(TEXT("TestProjectileState"))));
+    ULinearProjectileMovementState* LinearMovementState = NewObject<ULinearProjectileMovementState>(Projectile, FName(TEXT("TestLinearMovementState")));
+    check(LinearMovementState);
 
-    TestNotNull("LinearProjectileMovementState component is not null", LinearMovementState.Get());
-    TestEqual("LinearProjectileMovementState is attached to the projectile", Projectile->FindComponentByClass<ULinearProjectileMovementState>(), LinearMovementState.Get());
+    TestNotNull("LinearProjectileMovementState component is not null", LinearMovementState);
+    TestEqual("LinearProjectileMovementState is attached to the projectile", Projectile->FindComponentByClass<ULinearProjectileMovementState>(), LinearMovementState);
 
     // Test 1. Initial state setup
     LinearMovementState->BeginState();
