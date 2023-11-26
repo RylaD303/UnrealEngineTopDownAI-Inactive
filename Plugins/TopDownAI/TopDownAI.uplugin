@@ -23,7 +23,8 @@
 		{
 			"Name": "TopDownAITests",
 			"Type": "Runtime",
-			"LoadingPhase": "PostDefault"
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": ["Editor"]
 		}
 	]
 }

@@ -1,3 +1,4 @@
+#pragma once
 #include "Misc/AutomationTest.h"
 #include "Projectiles/States/LinearProjectileMovementState.h"
 #include "Projectiles/Projectile.h"

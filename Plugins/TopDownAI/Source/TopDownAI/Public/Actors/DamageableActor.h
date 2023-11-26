@@ -6,23 +6,28 @@
 #include "GameFramework/Actor.h"
 #include "DamageableActor.generated.h"
 
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "DamageableActor.generated.h"
+
 UCLASS()
 class TOPDOWNAI_API ADamageableActor : public AActor
 {
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	ADamageableActor();
+    GENERATED_BODY()
+
+public:
+    ADamageableActor();
+
+    virtual void Tick(float DeltaTime) override;
+
+    UFUNCTION(BlueprintCallable, Category = "Damage")
+    virtual void TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser);
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	
-	
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Health")
+    float Health;
 };
