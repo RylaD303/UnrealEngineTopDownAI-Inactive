@@ -7,7 +7,10 @@
 		{
 			"Name": "Demonless",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"TopDownAI"
+			]
 		}
 	],
 	"Plugins": [

@@ -1,35 +1,37 @@
+
 #pragma once
 
-#include "Math/Vector.h"
 #include "CoreMinimal.h"
-#include "Projectiles/ProjectileState.h"
-#include "LinearProjectileMovementState.generated.h"
+#include "ProjectileState.h"
+#include "HomingProjectileMovementState.generated.h"
 
 /**
  * 
  */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
-class TOPDOWNAI_API ULinearProjectileMovementState : public UProjectileState
+class TOPDOWNAI_API UHomingProjectileMovementState : public UProjectileState
 {
 	GENERATED_BODY()
 
 public:
-	ULinearProjectileMovementState();
+	UHomingProjectileState();
 
 	virtual void BeginState() override;
 	virtual void UpdateState(float DeltaTime) override;
 	virtual void EndState() override;
 
-
+	// Homing settings
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	float Speed;
+	float HomingStrength;
 
-	// Set the expiration time for the linear movement state
+	// Lifetime settings
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float ExpirationTime;
 
 private:
 	FTimerHandle ExpirationTimerHandle;
+
+	TWeakPtr<AActor> Target;
 
 	FVector FForwardVector;
 	// Function to handle collision events
