@@ -2,7 +2,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ProjectileState.h"
+#include "Projectiles/ProjectileState.h"
 #include "HomingProjectileMovementState.generated.h"
 
 /**
@@ -14,17 +14,18 @@ class TOPDOWNAI_API UHomingProjectileMovementState : public UProjectileState
 	GENERATED_BODY()
 
 public:
-	UHomingProjectileState();
+	UHomingProjectileMovementState();
 
 	virtual void BeginState() override;
 	virtual void UpdateState(float DeltaTime) override;
 	virtual void EndState() override;
 
-	// Homing settings
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float HomingStrength;
 
-	// Lifetime settings
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+	float Speed;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float ExpirationTime;
 
