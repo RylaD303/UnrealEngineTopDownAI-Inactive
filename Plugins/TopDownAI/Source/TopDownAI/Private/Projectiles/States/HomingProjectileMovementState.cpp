@@ -24,10 +24,10 @@ void UHomingProjectileMovementState::UpdateState(float DeltaTime)
 	{
 		FVector Direction = (Target.Pin()->GetActorLocation() - GetOwner()->GetActorLocation()).GetSafeNormal();
 		FForwardVector = FMath::Lerp(FForwardVector, Direction, HomingStrength * DeltaTime);
-		GetOwner()->SetActorRotation(FForwardVector.Rotation());
+        GetOwner()->SetActorRotation(FForwardVector.Rotation());
+        FVector NewLocation = GetOwner()->GetActorLocation() + GetOwner()->GetActorForwardVector() * Speed * DeltaTime;
+        GetOwner()->SetActorLocation(NewLocation);
 	}
-    FVector NewLocation = GetOwner()->GetActorLocation() + GetOwner()->GetActorForwardVector() * Speed * DeltaTime;
-	GetOwner()->SetActorLocation(NewLocation);
 }
 
 void UHomingProjectileMovementState::EndState()
