@@ -11,6 +11,10 @@
 			"AdditionalDependencies": [
 				"TopDownAI"
 			]
+		},
+		{
+			"Name": "TopDownAITests",
+			"Type": "Runtime"
 		}
 	],
 	"Plugins": [

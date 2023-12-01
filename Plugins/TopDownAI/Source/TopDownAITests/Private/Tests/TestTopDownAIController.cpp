@@ -1,4 +1,3 @@
-#pragma once
 #include "Misc/AutomationTest.h"
 #include "TopDownAIController.h"
 

@@ -19,12 +19,15 @@
 			"Name": "TopDownAI",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+			
 		},
 		{
 			"Name": "TopDownAITests",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"WhitelistPlatforms": ["Editor"]
+			"LoadingPhase": "PostDefault",
+			"AdditionalDependencies": [
+            "TopDownAI"  
+        	]
 		}
 	]
 }

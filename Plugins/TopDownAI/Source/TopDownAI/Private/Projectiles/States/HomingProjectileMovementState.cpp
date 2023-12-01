@@ -1,8 +1,6 @@
 #include "Projectiles/States/HomingProjectileMovementState.h"
-#include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Engine/World.h"
-#include "TimerManager.h"
 
 UHomingProjectileMovementState::UHomingProjectileMovementState()
 {
@@ -22,7 +20,7 @@ void UHomingProjectileMovementState::UpdateState(float DeltaTime)
 
 	if (Target.IsValid() && HomingStrength > 0)
 	{
-		FVector Direction = (Target.Pin()->GetActorLocation() - GetOwner()->GetActorLocation()).GetSafeNormal();
+		FVector Direction = (Target->GetActorLocation() - GetOwner()->GetActorLocation()).GetSafeNormal();
 		FForwardVector = FMath::Lerp(FForwardVector, Direction, HomingStrength * DeltaTime);
         GetOwner()->SetActorRotation(FForwardVector.Rotation());
         FVector NewLocation = GetOwner()->GetActorLocation() + GetOwner()->GetActorForwardVector() * Speed * DeltaTime;
@@ -39,5 +37,13 @@ void UHomingProjectileMovementState::EndState()
 
 void UHomingProjectileMovementState::OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// Your collision handling code here
+	// Collision raises flag? FIXME.
+}
+
+void UHomingProjectileMovementState::SetTarget(AActor* OtherActor)
+{
+    if (OtherActor)
+    {
+        Target = TWeakObjectPtr<AActor>(OtherActor);
+    }
 }

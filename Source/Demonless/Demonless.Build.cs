@@ -8,7 +8,7 @@ public class Demonless : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "TopDownAI" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "TopDownAI", "TopDownAITests" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

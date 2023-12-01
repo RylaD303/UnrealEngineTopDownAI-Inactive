@@ -1,8 +1,10 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "Projectiles/ProjectileState.h"
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "TimerManager.h"
 #include "HomingProjectileMovementState.generated.h"
 
 /**
@@ -29,13 +31,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float ExpirationTime;
 
+	UFUNCTION(BlueprintCallable)
+	void SetTarget(AActor* OtherActor);
+
+	TWeakObjectPtr<AActor> Target;
+
 private:
 	FTimerHandle ExpirationTimerHandle;
 
-	TWeakPtr<AActor> Target;
-
 	FVector FForwardVector;
-	// Function to handle collision events
 	UFUNCTION()
 	void OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
 };
