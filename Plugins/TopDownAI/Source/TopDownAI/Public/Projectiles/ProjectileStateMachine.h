@@ -1,30 +1,12 @@
-
-
 #pragma once
 
-#include "ProjectileState.h"
+#include "Projectiles/ProjectileState.h"
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Containers/Array.h"
 #include "ProjectileStateMachine.generated.h"
 
-UENUM(BlueprintType)
-enum class EProjectileMovementState : uint8
-{
-    PMS_Forward			UMETA(DisplayName = "Forward"),
-    PMS_Homing			UMETA(DisplayName = "Homing"),
-};
-
-
-UENUM(BlueprintType)
-enum class EProjectileBehaviourState : uint8
-{
-    PMS_Normal			    UMETA(DisplayName = "Normal"),
-    PMS_Repeating			UMETA(DisplayName = "Repeating"),
-    PMS_OnlyOne             UMETA(DisplayName = "Only one"),
-};
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOPDOWNAI_API UProjectileStateMachine : public UActorComponent
 {
 
@@ -33,19 +15,8 @@ class TOPDOWNAI_API UProjectileStateMachine : public UActorComponent
 public:	
 	UProjectileStateMachine();
 
-    UFUNCTION(BlueprintCallable, Category = "Projectile")
-    void SetProjectileState(UProjectileState* NewState);
-	
-private:
-
-    UPROPERTY(EditAnywhere, Category = "ProjectileState")
-    EProjectileMovementState MovementState;
-
-    UPROPERTY(EditAnywhere, Category = "ProjectileState")
-    TArray<EProjectileMovementState> MovementStates;
-
-    UPROPERTY(EditAnywhere, Category = "ProjectileState")
-    EProjectileBehaviourState BehaviourState;
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile States")
+	TArray<TSubclassOf<UProjectileState>> StateSequence;
     
 protected:
 	virtual void BeginPlay() override;
@@ -53,6 +24,13 @@ protected:
 public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+    int32 CurrentStateIndex;
+
+	void SetNextState();
+	void EndCurrentState();
+
+	UFUNCTION()
+	void OnStateEnded();
 		
 	
 };
