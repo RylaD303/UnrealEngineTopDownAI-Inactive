@@ -24,15 +24,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float Speed;
 
-	// Set the expiration time for the linear movement state
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
-	float ExpirationTime;
-
 private:
-	FTimerHandle ExpirationTimerHandle;
-
 	FVector FForwardVector;
-	// Function to handle collision events
-	UFUNCTION()
-	void OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
+	void HandleCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit) override;
+	
+	void HandleTimeout() override;
 };

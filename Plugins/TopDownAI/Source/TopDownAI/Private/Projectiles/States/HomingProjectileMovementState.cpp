@@ -11,7 +11,7 @@ void UHomingProjectileMovementState::BeginState()
 {
 	Super::BeginState();
 
-	GetWorld()->GetTimerManager().SetTimer(ExpirationTimerHandle, this, &UHomingProjectileMovementState::EndState, ExpirationTime, false);
+	GetWorld()->GetTimerManager().SetTimer(ExpirationTimerHandle, this, &UHomingProjectileMovementState::HandleTimeout, ExpirationTime, false);
 }
 
 void UHomingProjectileMovementState::UpdateState(float DeltaTime)
@@ -35,9 +35,14 @@ void UHomingProjectileMovementState::EndState()
 	GetWorld()->GetTimerManager().ClearTimer(ExpirationTimerHandle);
 }
 
-void UHomingProjectileMovementState::OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+void UHomingProjectileMovementState::HandleCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// Collision raises flag? FIXME.
+	// End state or just bounce. Fixme?
+}
+
+void UHomingProjectileMovementState::HandleTimeout()
+{
+	EndState();
 }
 
 void UHomingProjectileMovementState::SetTarget(AActor* OtherActor)
@@ -47,3 +52,4 @@ void UHomingProjectileMovementState::SetTarget(AActor* OtherActor)
         Target = TWeakObjectPtr<AActor>(OtherActor);
     }
 }
+

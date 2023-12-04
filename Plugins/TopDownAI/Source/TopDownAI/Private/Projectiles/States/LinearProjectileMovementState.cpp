@@ -13,14 +13,14 @@ void ULinearProjectileMovementState::BeginState()
 
 #ifndef NO_DEBUG
 	assert(GetOwner() != NULL);
-	UE_LOG(LogTemp, Verbose, TEDXT("Owner: %s. Projectile entered LinearProjectileState.", *GetOwner()->GetName());
+	UE_LOG(LogTemp, Verbose, TEXT("Owner: %s. Projectile entered LinearProjectileState.", *GetOwner()->GetName());
 #endif
 
 	GetWorld()->GetTimerManager().SetTimer(ExpirationTimerHandle, this, &ULinearProjectileMovementState::EndState, ExpirationTime, false);
 
 	if (GetOwner())
 	{
-		GetOwner()->OnActorHit.AddDynamic(this, &ULinearProjectileMovementState::OnCollision);
+		GetOwner()->OnActorHit.AddDynamic(this, &ULinearProjectileMovementState::HandleCollision);
 	}
 }
 
@@ -41,19 +41,22 @@ void ULinearProjectileMovementState::EndState()
 
 #ifndef NO_DEBUG
 	assert(GetOwner() != NULL);
-	UE_LOG(LogTemp, Verbose, TEDXT("Owner: %s. Projectile ended.", *GetOwner()->GetName());
+	UE_LOG(LogTemp, Verbose, TEXT("Owner: %s. Projectile ended.", *GetOwner()->GetName());
 #endif
 
 	GetWorld()->GetTimerManager().ClearTimer(ExpirationTimerHandle);
 
-	// Unbind OnCollision function from OnHit event (replace with your actual collision event)
 	if (GetOwner())
 	{
-		GetOwner()->OnActorHit.RemoveDynamic(this, &ULinearProjectileMovementState::OnCollision);
+		GetOwner()->OnActorHit.RemoveDynamic(this, &ULinearProjectileMovementState::HandleCollision);
 	}
 }
 
-void ULinearProjectileMovementState::OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+void ULinearProjectileMovementState::HandleCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit)
+{
+	EndState();
+}
+void ULinearProjectileMovementState::HandleTimeout()
 {
 	EndState();
 }

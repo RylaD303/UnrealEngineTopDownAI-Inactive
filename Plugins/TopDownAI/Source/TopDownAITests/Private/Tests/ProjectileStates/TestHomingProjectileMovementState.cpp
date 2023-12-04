@@ -5,9 +5,26 @@
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(
     TestHomingProjectileMovementState,
     "TopDownAI.Projectile.ProjectileStates.HomingProjectileMovementStateTest",
-
     EAutomationTestFlags::SmokeFilter | EAutomationTestFlags::ApplicationContextMask)
 
+
+
+/*
+[2024.02.04-18.09.09:236][  0]LogOutputDevice: Error: === Handled ensure: ===
+[2024.02.04-18.09.09:236][  0]LogOutputDevice: Error: 
+[2024.02.04-18.09.09:236][  0]LogOutputDevice: Error: Ensure condition failed: Registry  [File:./Runtime/Engine/Private/Elements/Framework/EngineElementsLibrary.cpp] [Line: 39] 
+[2024.02.04-18.09.09:236][  0]LogOutputDevice: Error: Typed element was requested for '/Script/TopDownAI.Projectile:Projectile_0.ProjectileMovementComponent' before the registry was available! This usually means that NewObject was used instead of CreateDefaultSubobject during CDO construction.
+[2024.02.04-18.09.09:236][  0]LogOutputDevice: Error: Stack: 
+[2024.02.04-18.09.09:236][  0]LogOutputDevice: Error: [Callstack] 0x00007ffff3ad2600 
+libUnrealEditor-Engine.so!TTypedElementOwner<FComponentElementData> EngineElementsLibraryUtil::
+CreateTypedElement<UActorComponent, FComponentElementData>(UActorComponent const*, FName) 
+[/home/alemak/programs/UnrealEngine/Engine/Source/./Runtime/Engine/Private/Elements/Framework/EngineElementsLibrary.cpp:39]
+
+
+Like what in the Lord is that?, why is the NewObject construction for AProjectile called before the AProjectile is available for use.
+
+Seems like recompiling Uobjects used in the tests results in that error.
+*/
 bool TestHomingProjectileMovementState::RunTest(FString const& Parameters)
 {
     // Test 0. Component attachments

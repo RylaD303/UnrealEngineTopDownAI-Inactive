@@ -27,19 +27,16 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
 	float Speed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
-	float ExpirationTime;
-
+	
 	UFUNCTION(BlueprintCallable)
 	void SetTarget(AActor* OtherActor);
 
 	TWeakObjectPtr<AActor> Target;
 
 private:
-	FTimerHandle ExpirationTimerHandle;
-
 	FVector FForwardVector;
-	UFUNCTION()
-	void OnCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit);
+
+	void HandleCollision(AActor* SelfActor, AActor* OtherActor, FVector NormalImpulse, const FHitResult& Hit) override;
+	
+	void HandleTimeout() override;
 };

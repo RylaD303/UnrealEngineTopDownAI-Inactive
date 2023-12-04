@@ -22,12 +22,10 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
     int32 CurrentStateIndex;
 
 	void SetNextState();
-	void EndCurrentState();
+	void RemoveState();
 
 	UFUNCTION()
 	void OnStateEnded();

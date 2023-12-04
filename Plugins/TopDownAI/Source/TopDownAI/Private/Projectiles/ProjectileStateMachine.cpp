@@ -22,38 +22,38 @@ void UProjectileStateMachine::BeginPlay()
 
 void UProjectileStateMachine::SetNextState()
 {
-	if (CurrentStateIndex < StateSequence.Num())
-	{
-		if (UProjectileState* NextState = NewObject<UProjectileState>(GetOwner(), StateSequence[CurrentStateIndex]))
-		{
-			NextState->OnStateTimeout.AddDynamic(this, &UProjectileStateMachine::OnStateTimeout);
-			NextState->OnProjectileCollided.AddDynamic(this, &UProjectileStateMachine::OnStateCollided);
-			NextState->BeginState();
-			++CurrentStateIndex;
-		}
-	}
-	else
-	{
-		GetOwner()->Destroy();
-	}
+    if (CurrentStateIndex < StateSequence.Num())
+    {
+        UClass* NextStateClass = StateSequence[CurrentStateIndex];
+        if (NextStateClass)
+        {
+            // Directly cast the class to the base class (UProjectileState)
+            UProjectileState* NextState = Cast<UProjectileState>(NextStateClass->GetDefaultObject());
+
+            if (NextState)
+            {
+                NextState->OnStateEnded.AddDynamic(this, &UProjectileStateMachine::OnStateEnded);
+                NextState->BeginState();
+                ++CurrentStateIndex;
+            }
+        }
+    }
+    else
+    {
+        GetOwner()->Destroy();
+    }
 }
 
-void UProjectileStateMachine::EndCurrentState()
+void UProjectileStateMachine::RemoveState()
 {
 	if (UProjectileState* CurrentState = GetOwner()->FindComponentByClass<UProjectileState>())
 	{
-		CurrentState->EndState();
+		CurrentState->DestroyComponent();
 	}
 }
 
-void UProjectileStateMachine::OnStateTimeout()
+void UProjectileStateMachine::OnStateEnded()
 {
-	EndCurrentState();
-	SetNextState();
-}
-
-void UProjectileStateMachine::OnProjectileCollided()
-{
-	EndCurrentState();
+	RemoveState();
 	SetNextState();
 }
