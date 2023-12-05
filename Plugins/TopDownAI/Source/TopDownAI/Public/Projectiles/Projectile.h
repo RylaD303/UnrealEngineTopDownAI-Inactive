@@ -1,9 +1,10 @@
 
 
 #pragma once
-
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/SphereComponent.h"
+#include "Actors/DamageableActor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Projectile.generated.h"
 
@@ -27,8 +28,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, Category = "Movement")
 	class UProjectileMovementComponent* MovementComponent;
 
-   UPROPERTY(VisibleAnywhere, Category = "Collision")
-	class USphereComponent* CollisionComponent;
+   	UPROPERTY(VisibleAnywhere, Category = "Collision")
+	class USphereComponent* CollisionComponent; 
 
 	UPROPERTY(EditAnywhere)
 	double Damage;

@@ -8,7 +8,7 @@ IMPLEMENT_SIMPLE_AUTOMATION_TEST(
 
 bool TestTopDown2DAI::RunTest(FString const& Parameters)
 {
-    const auto bToTest = false;
+    const auto bToTest = true;
     TestTrue("bool to test", bToTest);
 
     const auto FloatToTest = 0.F;

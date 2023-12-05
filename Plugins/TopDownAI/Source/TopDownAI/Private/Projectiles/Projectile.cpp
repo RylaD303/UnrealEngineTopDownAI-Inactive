@@ -1,7 +1,6 @@
 
 #include "Projectiles/Projectile.h"
-#include "Actors/DamageableActor.h"
-#include "Components/SphereComponent.h"
+#include "Engine/DamageEvents.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -40,7 +39,9 @@ void AProjectile::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImp
 		ADamageableActor* DamageableActor = Cast<ADamageableActor>(OtherActor);
     	if (DamageableActor)
 		{
-			//OtherActor->TakeDamage(Damage, FDamageEvent(), nullptr, this);
+			UDamageType* DamageType = UDamageType::StaticClass()->GetDefaultObject<UDamageType>();
+            FPointDamageEvent Event(Damage, Hit, NormalImpulse, DamageType->GetClass());
+            OtherActor->TakeDamage(Damage, Event, nullptr, this);
 		}
 		
 
