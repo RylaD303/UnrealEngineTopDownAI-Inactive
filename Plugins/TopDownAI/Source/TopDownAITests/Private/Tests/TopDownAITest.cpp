@@ -13,8 +13,10 @@ class TOPDOWNAI_API FTestModuleImpl : public FDefaultGameModuleImpl
     {
         /* Workaround for UE-25350 (This issue from 2016 by the way. Still not fixed.)
         Work­around would there­fore be to just cre­ate an emp­ty UCLASS in the mod­ule that con­tains the tests.*/
-        //FAutomationTestFramework::Get().UnregisterAutomationTest("TopDownAITest"); // self
-        //FAutomationTestFramework::Get().UnregisterAutomationTest("TestTopDownAIController");
+        FAutomationTestFramework::Get().UnregisterAutomationTest("TopDownAITest"); // self
+        FAutomationTestFramework::Get().UnregisterAutomationTest("TestTopDownAIController");
+        FAutomationTestFramework::Get().UnregisterAutomationTest("TestHomingProjectileMovementState");
+        FAutomationTestFramework::Get().UnregisterAutomationTest("TestLinearProjectileMovementState");
 
          // ... for every test defined.
 

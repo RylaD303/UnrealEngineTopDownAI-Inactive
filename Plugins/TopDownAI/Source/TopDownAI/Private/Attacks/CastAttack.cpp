@@ -1,19 +1,15 @@
-
-
-
 #include "Attacks/CastAttack.h"
 #include "Kismet/GameplayStatics.h"
 #include "Projectiles/Projectile.h"
 
+
 UCastAttack::UCastAttack()
 {
-    PrimaryComponentTick.bCanEverTick = false;
+    // well this is akward 
 }
-
-void UCastAttack::BeginPlay()
+UCastAttack::UCastAttack(AActor* OwningActor)
 {
-    Super::BeginPlay();
-    OwningActor = GetOwner();
+    this->OwningActor = OwningActor;
 }
 
 void UCastAttack::StartCast()

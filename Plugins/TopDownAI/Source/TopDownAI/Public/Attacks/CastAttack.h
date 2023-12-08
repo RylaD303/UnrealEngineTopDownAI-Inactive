@@ -9,15 +9,17 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCastFinished);
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOPDOWNAI_API UCastAttack : public UObject
+{
     GENERATED_BODY()
 
 public:
     UCastAttack();
+    UCastAttack(AActor* OwningActor);
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile States")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
     TArray<TSubclassOf<class AProjectile>> ProjectileClasses;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile States")
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
     TArray<float> ProjectileDelays;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Cast Configuration")
@@ -31,9 +33,6 @@ public:
 
     UPROPERTY(BlueprintAssignable, Category = "Cast Events")
     FOnCastFinished OnCastFinished;
-
-protected:
-    virtual void BeginPlay() override;
 
 private:
     int32 CurrentProjectileIndex;
