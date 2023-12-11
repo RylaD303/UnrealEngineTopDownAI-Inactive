@@ -1,19 +1,16 @@
 #include "TopDownAIController.h"
-
+#include "Blueprint/AIBlueprintHelperLibrary.h"
 
 void ATopDownAIController::StartAI()
 {
     bIsAIActive = true;
     RunBehaviorTree(BehaviorTreeAsset);
-
-    GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
 }
 
 void ATopDownAIController::StopAI()
 {
     bIsAIActive = false;
     StopMovement();
-    StopBehaviorTree();
 }
 
 AActor* ATopDownAIController::FindBestTarget()
@@ -24,9 +21,9 @@ AActor* ATopDownAIController::FindBestTarget()
     AActor* BestTarget = nullptr;
     float BestScore = TNumericLimits<float>::Max();
 
-    for (AActor* Target : FoundActors)
+    for (AActor* Target: FoundActors)
     {
-        if (IsValidTarget(Target))
+        if (Target)
         {
             float Score = CalculateTargetScore(Target);
 
@@ -39,12 +36,6 @@ AActor* ATopDownAIController::FindBestTarget()
     }
 
     return BestTarget;
-}
-
-bool ATopDownAIController::IsValidTarget(AActor* Target)
-{
-    // Implement your criteria for a valid target here
-    return Target && !Target->IsPendingKill();
 }
 
 float ATopDownAIController::CalculateTargetScore(AActor* Target)
@@ -61,7 +52,7 @@ void ATopDownAIController::MoveToTarget(AActor* Target)
         if (NavSystem)
         {
             FVector TargetLocation = Target->GetActorLocation();
-            NavSystem->SimpleMoveToLocation(this, TargetLocation);
+            UAIBlueprintHelperLibrary::SimpleMoveToLocation(this, TargetLocation);
         }
     }
 }
@@ -82,6 +73,7 @@ void ATopDownAIController::PerformRandomCastAttack()
             // Perform the chosen cast attack
             if (CastAttack)
             {
+                CastAttack->OnProjectileFired.AddDynamic(this, &ATopDownAIController::PlayAttackAnimation);
                 CastAttack->StartCast();
                 StopMovement();
             }

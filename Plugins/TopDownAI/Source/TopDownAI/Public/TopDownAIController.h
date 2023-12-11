@@ -50,9 +50,6 @@ public:
 	AActor* FindBestTarget();
 
 	UFUNCTION(BlueprintCallable, Category = "AI|Targeting")
-	bool IsValidTarget(AActor* Target);
-
-	UFUNCTION(BlueprintCallable, Category = "AI|Targeting")
 	float CalculateTargetScore(AActor* Target);
 
 	UFUNCTION(BlueprintCallable, Category = "AI|Movement")
@@ -71,9 +68,6 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "AI|Animation")
 	void PlayDeathAnimation();
 
-private:
-	bool bIsAIActive = false;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
 	class UBehaviorTree* BehaviorTreeAsset;
 
@@ -85,6 +79,9 @@ private:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI|Attack")
 	TArray<TSubclassOf<class UCastAttack>> CastAttacks;
+
+private:
+	bool bIsAIActive = false;
 
 	void InitializeAnimations();
 

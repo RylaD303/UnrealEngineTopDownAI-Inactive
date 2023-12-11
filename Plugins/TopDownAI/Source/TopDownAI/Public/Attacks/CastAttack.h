@@ -6,7 +6,7 @@
 #include "CastAttack.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCastFinished);
-
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FProjectileFired);
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class TOPDOWNAI_API UCastAttack : public UObject
 {
@@ -34,14 +34,15 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Cast Events")
     FOnCastFinished OnCastFinished;
 
+    UPROPERTY(BlueprintAssignable, Category = "Projectile Events")
+    FProjectileFired OnProjectileFired;
+
 private:
     int32 CurrentProjectileIndex;
 	
     AActor* OwningActor;
 
     void SpawnProjectile();
-
-    void OnProjectileFired();
 
     FTimerHandle CastTimerHandle;
 };

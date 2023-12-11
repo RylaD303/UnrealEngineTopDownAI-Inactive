@@ -40,7 +40,7 @@ void UCastAttack::SpawnProjectile()
             FRotator ProjectileRotation = AdjustedDirection.Rotation();
             NewProjectile->SetActorRotation(ProjectileRotation);
             NewProjectile->SetActorScale3D(FVector(1.0f, 1.0f, 1.0f));
-
+            OnProjectileFired.Broadcast();
             // Set a timer for the next projectile
             GetWorld()->GetTimerManager().SetTimer(CastTimerHandle, this, &UCastAttack::SpawnProjectile, ProjectileDelay, false);
 
@@ -53,9 +53,4 @@ void UCastAttack::SpawnProjectile()
             ++CurrentProjectileIndex;
         }
     }
-}
-
-void UCastAttack::OnProjectileFired()
-{
-    // Add Alert later? FIXME!
 }

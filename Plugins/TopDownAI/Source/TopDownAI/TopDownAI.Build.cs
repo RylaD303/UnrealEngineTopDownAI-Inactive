@@ -27,7 +27,8 @@ public class TopDownAI : ModuleRules
 			{
 				"Core",
 				"AIModule",
-				"AutomationTest"
+				"AutomationTest",
+				"NavigationSystem",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -39,7 +40,7 @@ public class TopDownAI : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
+				"SlateCore"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
