@@ -5,24 +5,22 @@
 // Sets default values
 AProjectile::AProjectile()
 {
-	// Set this actor to call Tick() every frame
 	PrimaryActorTick.bCanEverTick = true;
-
-	// Create the movement component using CreateDefaultSubobject
 	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
-
-	// Set default values for the movement component
 	MovementComponent->InitialSpeed = 10.0f;
 	MovementComponent->MaxSpeed = 10.0f;
 	MovementComponent->bRotationFollowsVelocity = true;
-
-	// Set default values
 	Damage = 10.0;
 }
 
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
+
+#ifndef NO_DEBUG
+	assert(GetOwner() != nullptr);
+	UE_LOG(LogTemp, Verbose, TEXT("Owner: %s. Projectile entered HomingProjectileState."), *GetOwner()->GetName());
+#endif
 
 	OnActorHit.AddDynamic(this, &AProjectile::OnHit);
 }
@@ -36,14 +34,18 @@ void AProjectile::OnHit(AActor* SelfActor, AActor* OtherActor, FVector NormalImp
 {
 	if (OtherActor && OtherActor != this)
 	{
+#ifndef NO_DEBUG
+		assert(GetOwner() != nullptr);
+		UE_LOG(LogTemp, Verbose, TEXT("Owner: %s. Collision detected with: %s."), *GetOwner()->GetName(), *OtherActor->GetName());
+#endif
+
 		ADamageableActor* DamageableActor = Cast<ADamageableActor>(OtherActor);
-    	if (DamageableActor)
+		if (DamageableActor)
 		{
 			UDamageType* DamageType = UDamageType::StaticClass()->GetDefaultObject<UDamageType>();
-            FPointDamageEvent Event(Damage, Hit, NormalImpulse, DamageType->GetClass());
-            OtherActor->TakeDamage(Damage, Event, nullptr, this);
+			FPointDamageEvent Event(Damage, Hit, NormalImpulse, DamageType->GetClass());
+			OtherActor->TakeDamage(Damage, Event, nullptr, this);
 		}
-		
 
 		// Later: alert the ProjectileStateHandler. FIXME!
 		Destroy();
