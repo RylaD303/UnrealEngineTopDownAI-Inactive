@@ -6,7 +6,6 @@ void ATopDownAIController::StartAI()
     bIsAIActive = true;
     RunBehaviorTree(BehaviorTreeAsset);
 
-    // Set AI configuration parameters
     GetCharacterMovement()->MaxWalkSpeed = MovementSpeed;
 }
 
@@ -83,10 +82,7 @@ void ATopDownAIController::PerformRandomCastAttack()
             // Perform the chosen cast attack
             if (CastAttack)
             {
-                // Example function to execute the attack
-                CastAttack->ExecuteAttack();
-
-                // You may want to stop AI movement during the attack, depending on your requirements
+                CastAttack->StartCast();
                 StopMovement();
             }
         }
@@ -96,7 +92,38 @@ void ATopDownAIController::PerformRandomCastAttack()
 void ATopDownAIController::BeginPlay()
 {
     Super::BeginPlay();
+    StartAI();
+}
 
-    // Optionally start AI automatically when the game begins
-    // StartAI();
+
+void ATopDownAIController::PlayAnimationByState(ETopDownAIState State)
+{
+	if (Animations.Contains(State))
+	{
+		UAnimMontage* Animation = Animations[State];
+		if (AnimationInstance && Animation)
+		{
+			AnimationInstance->Montage_Play(Animation);
+		}
+	}
+}
+
+void ATopDownAIController::PlayIdleAnimation()
+{
+	PlayAnimationByState(ETopDownAIState::Idle);
+}
+
+void ATopDownAIController::PlayMoveAnimation()
+{
+	PlayAnimationByState(ETopDownAIState::Move);
+}
+
+void ATopDownAIController::PlayAttackAnimation()
+{
+	PlayAnimationByState(ETopDownAIState::Attack);
+}
+
+void ATopDownAIController::PlayDeathAnimation()
+{
+	PlayAnimationByState(ETopDownAIState::Death);
 }
