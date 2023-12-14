@@ -10,7 +10,6 @@ void ADamageableActor::BeginPlay()
     Super::BeginPlay();
 }
 
-// Called every frame
 void ADamageableActor::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
