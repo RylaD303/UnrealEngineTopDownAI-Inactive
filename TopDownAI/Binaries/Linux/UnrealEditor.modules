@@ -1,0 +1,8 @@
+{
+	"BuildId": "a87eb85b-7e42-427a-bd67-dcc13dc53a84",
+	"Modules": 
+	{
+		"TopDownAI": "libUnrealEditor-TopDownAI.so",
+		"TopDownAITests": "libUnrealEditor-TopDownAITests.so"
+	}
+}

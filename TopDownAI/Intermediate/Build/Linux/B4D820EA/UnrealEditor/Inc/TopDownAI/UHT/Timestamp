@@ -1,0 +1,8 @@
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Projectiles/Projectile.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Projectiles/ProjectileState.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Projectiles/ProjectileStateMachine.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Projectiles/States/LinearProjectileMovementState.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/TopDownAIController.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Projectiles/States/HomingProjectileMovementState.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Attacks/CastAttack.h
+/home/alemak/projects/Demonless/Plugins/TopDownAI/Source/TopDownAI/Public/Actors/DamageableActor.h
